@@ -1,0 +1,366 @@
+﻿
+> local-2fa-authenticator@0.1.0 tauri
+> tauri build
+
+node.exe :         Info 
+Looking up installed tau
+ri packages to check mis
+matched versions...
+위치 C:\Users\minse\AppDat
+a\Roaming\npm\npm.ps1:24
+ 문자:5
++     & "node$exe"  "$ba
+sedir/node_modules/npm/b
+in/npm-cli.js" $args
++     ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo      
+        : NotS    pecifi
+ed: (            Info Lo
+...h    ed versions...: 
+   String) [], Rem    ot
+eException
+    + FullyQualifie    d
+ErrorId : Nati    veComm
+andError
+ 
+     Running beforeBuild
+Command `npm run build`
+
+> local-2fa-authenticator@0.1.0 build
+> vite build
+
+[36mvite v6.4.1 [32mbuilding SSR bundle for production...[36m[39m
+transforming...
+[32m✓[39m 196 modules transformed.
+rendering chunks...
+[36mvite v6.4.1 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 159 modules transformed.
+rendering chunks...
+computing gzip size...
+[2m.svelte-kit/output/client/[22m[32m_app/version.json                       [39m[1m[2m 0.03 kB[22m[1m[22m[2m │ gzip:  0.05 kB[22m
+[2m.svelte-kit/output/client/[22m[32m.vite/manifest.json                     [39m[1m[2m 3.27 kB[22m[1m[22m[2m │ gzip:  0.63 kB[22m
+[2m.svelte-kit/output/client/[22m[35m_app/immutable/assets/2.Sqdc9T_4.css    [39m[1m[2m 0.38 kB[22m[1m[22m[2m │ gzip:  0.23 kB[22m
+[2m.svelte-kit/output/client/[22m[35m_app/immutable/assets/0.zWtwkz0g.css    [39m[1m[2m28.76 kB[22m[1m[22m[2m │ gzip:  6.46 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/HZI_JCNB.js       [39m[1m[2m 0.04 kB[22m[1m[22m[2m │ gzip:  0.06 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/entry/start.1cKkK-So.js  [39m[1m[2m 0.08 kB[22m[1m[22m[2m │ gzip:  0.09 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/nodes/0.QA644XQP.js      [39m[1m[2m 0.48 kB[22m[1m[22m[2m │ gzip:  0.35 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/Dr3ShAbo.js       [39m[1m[2m 0.51 kB[22m[1m[22m[2m │ gzip:  0.33 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/nodes/1.Bc2LXhum.js      [39m[1m[2m 0.62 kB[22m[1m[22m[2m │ gzip:  0.38 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/Dda2DRgy.js       [39m[1m[2m 0.71 kB[22m[1m[22m[2m │ gzip:  0.44 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/C_KP9iv0.js       [39m[1m[2m 1.68 kB[22m[1m[22m[2m │ gzip:  0.85 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/CIXOet7b.js       [39m[1m[2m 3.89 kB[22m[1m[22m[2m │ gzip:  1.83 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/entry/app.DKD5dcjl.js    [39m[1m[2m 6.24 kB[22m[1m[22m[2m │ gzip:  2.88 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/DJHYna36.js       [39m[1m[2m 8.07 kB[22m[1m[22m[2m │ gzip:  3.43 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/DXHkoO-A.js       [39m[1m[2m24.15 kB[22m[1m[22m[2m │ gzip:  9.52 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/chunks/CPcVHu2q.js       [39m[1m[2m27.92 kB[22m[1m[22m[2m │ gzip: 10.81 kB[22m
+[2m.svelte-kit/output/client/[22m[36m_app/immutable/nodes/2.jugejNJ_.js      [39m[1m[2m32.88 kB[22m[1m[22m[2m │ gzip: 11.78 kB[22m
+[32m✓ built in 1.02s[39m
+[2m.svelte-kit/output/server/[22m[32m.vite/manifest.json                         [39m[1m[2m  2.94 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[35m_app/immutable/assets/_page.Sqdc9T_4.css    [39m[1m[2m  0.38 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[35m_app/immutable/assets/_layout.BvkRAPnJ.css  [39m[1m[2m 28.60 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mentries/pages/_layout.ts.js                 [39m[1m[2m  0.04 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/false.js                             [39m[1m[2m  0.05 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mentries/pages/_layout.svelte.js             [39m[1m[2m  0.23 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36minternal.js                                 [39m[1m[2m  0.35 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/environment.js                       [39m[1m[2m  0.62 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/utils.js                             [39m[1m[2m  1.15 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mentries/fallbacks/error.svelte.js           [39m[1m[2m  1.35 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/internal.js                          [39m[1m[2m  3.69 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/exports.js                           [39m[1m[2m  6.98 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mremote-entry.js                             [39m[1m[2m 19.00 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mentries/pages/_page.svelte.js               [39m[1m[2m 21.89 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/shared.js                            [39m[1m[2m 26.42 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/index.js                             [39m[1m[2m 37.74 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mchunks/root.js                              [39m[1m[2m 77.78 kB[22m[1m[22m
+[2m.svelte-kit/output/server/[22m[36mindex.js                                    [39m[1m[2m122.99 kB[22m[1m[22m
+[32m✓ built in 3.14s[39m
+
+Run npm run preview to preview your production build locally.
+
+> Using @sveltejs/adapter-static
+  Wrote site to "build"
+  ✔ done
+   Compiling serde_core 
+v1.0.228
+   Compiling windows-sys
+ v0.61.2
+   Compiling smallvec v1
+.15.1
+   Compiling tokio-macro
+s v2.6.0
+   Compiling futures-sin
+k v0.3.32
+   Compiling slab v0.4.1
+2
+   Compiling getrandom v
+0.4.1
+   Compiling getrandom v
+0.2.17
+   Compiling http-body v
+1.0.1
+   Compiling futures-uti
+l v0.3.32
+   Compiling futures-cha
+nnel v0.3.32
+   Compiling tower-servi
+ce v0.3.3
+   Compiling icu_normali
+zer v2.1.1
+   Compiling parking_lot
+_core v0.9.12
+   Compiling httparse v1
+.10.1
+   Compiling base64 v0.2
+2.1
+   Compiling concurrent-
+queue v2.5.0
+   Compiling windows_x86
+_64_msvc v0.48.5
+   Compiling atomic-wake
+r v1.1.2
+   Compiling try-lock v0
+.2.5
+   Compiling want v0.3.1
+   Compiling ring v0.17.
+14
+   Compiling parking_lot
+ v0.12.5
+   Compiling chrono v0.4
+.43
+   Compiling windows-sys
+ v0.59.0
+   Compiling sync_wrappe
+r v1.0.2
+   Compiling windows-str
+ings v0.5.1
+   Compiling windows-res
+ult v0.4.1
+   Compiling httpdate v1
+.0.3
+   Compiling pin-utils v
+0.1.0
+   Compiling native-tls 
+v0.2.18
+   Compiling tower-layer
+ v0.3.3
+   Compiling idna_adapte
+r v1.2.1
+   Compiling windows-reg
+istry v0.6.1
+   Compiling idna v1.1.0
+   Compiling http-body-u
+til v0.1.3
+   Compiling sqlx-core v
+0.8.6
+   Compiling zerocopy v0
+.8.39
+   Compiling ipnet v2.11
+.0
+   Compiling serde v1.0.
+228
+   Compiling serde_json 
+v1.0.149
+   Compiling bitflags v2
+.11.0
+   Compiling uuid v1.21.
+0
+   Compiling serde_spann
+ed v1.0.4
+   Compiling erased-serd
+e v0.4.9
+   Compiling toml_dateti
+me v0.7.5+spec-1.1.0
+   Compiling serde_with 
+v3.16.1
+   Compiling event-liste
+ner v5.4.1
+   Compiling toml v0.9.1
+2+spec-1.1.0
+   Compiling cfb v0.7.3
+   Compiling url v2.5.8
+   Compiling dpi v0.1.2
+   Compiling serde-untag
+ged v0.1.9
+   Compiling serde_urlen
+coded v0.7.1
+   Compiling rustls-webp
+ki v0.103.9
+   Compiling wry v0.54.2
+   Compiling jsonptr v0.
+6.3
+   Compiling keyboard-ty
+pes v0.7.0
+   Compiling infer v0.19
+.0
+   Compiling json-patch 
+v3.0.1
+   Compiling urlpattern 
+v0.3.0
+   Compiling rustls v0.2
+3.36
+   Compiling tao v0.34.5
+   Compiling either v1.1
+5.0
+   Compiling mio v1.1.1
+   Compiling winapi-util
+ v0.1.11
+   Compiling schannel v0
+.1.28
+   Compiling sqlx-sqlite
+ v0.8.6
+   Compiling same-file v
+1.0.6
+   Compiling softbuffer 
+v0.4.8
+   Compiling dirs-sys v0
+.5.0
+   Compiling flume v0.11
+.1
+   Compiling walkdir v2.
+5.0
+   Compiling windows-tar
+gets v0.48.5
+   Compiling tokio v1.49
+.0
+   Compiling tauri-utils
+ v2.8.2
+   Compiling futures-int
+rusive v0.5.0
+   Compiling polling v2.
+8.0
+   Compiling serialize-t
+o-javascript v0.1.2
+   Compiling windows-sys
+ v0.48.0
+   Compiling dirs v6.0.0
+   Compiling ppv-lite86 
+v0.2.21
+   Compiling muda v0.17.
+1
+   Compiling futures-exe
+cutor v0.3.32
+   Compiling window-vibr
+ancy v0.6.0
+   Compiling rand_core v
+0.6.4
+   Compiling windows-sys
+ v0.52.0
+   Compiling iri-string 
+v0.7.10
+   Compiling bitflags v1
+.3.2
+   Compiling rand_chacha
+ v0.3.1
+   Compiling if-addrs v0
+.13.4
+   Compiling axum-core v
+0.5.6
+   Compiling sqlx-macros
+-core v0.8.6
+   Compiling serde_path_
+to_error v0.1.20
+   Compiling socket2 v0.
+5.10
+   Compiling local-2fa-a
+uthenticator v0.1.0 (C:\
+Users\minse\.gemini\anti
+gravity\scratch\local-2f
+a-authenticator\src-taur
+i)
+   Compiling encoding_rs
+ v0.8.35
+   Compiling fastrand v2
+.3.0
+   Compiling matchit v0.
+8.4
+   Compiling mdns-sd v0.
+12.0
+   Compiling rand v0.8.5
+   Compiling hostname v0
+.4.2
+   Compiling sqlx-macros
+ v0.8.6
+   Compiling tauri-runti
+me v2.10.0
+   Compiling tokio-util 
+v0.7.18
+   Compiling tokio-strea
+m v0.1.18
+   Compiling tower v0.5.
+3
+   Compiling tauri-runti
+me-wry v2.10.0
+   Compiling tokio-nativ
+e-tls v0.3.1
+   Compiling h2 v0.4.13
+   Compiling tower-http 
+v0.6.8
+   Compiling tauri v2.10
+.2
+   Compiling hyper v1.8.
+1
+   Compiling sqlx v0.8.6
+   Compiling hyper-util 
+v0.1.20
+   Compiling tauri-plugi
+n-opener v2.5.3
+   Compiling hyper-tls v
+0.6.0
+   Compiling axum v0.8.8
+   Compiling reqwest v0.
+12.28
+    Finished `release` p
+rofile [optimized] targe
+t(s) in 1m 07s
+       Built application
+ at: C:\Users\minse\.gem
+ini\antigravity\scratch\
+local-2fa-authenticator\
+src-tauri\target\release
+\local-2fa-authenticator
+.exe
+        Info Target: x64
+     Running candle for 
+"C:\\Users\\minse\\.gemi
+ni\\antigravity\\scratch
+\\local-2fa-authenticato
+r\\src-tauri\\target\\re
+lease\\wix\\x64\\main.wx
+s"
+     Running light to pr
+oduce C:\Users\minse\.ge
+mini\antigravity\scratch
+\local-2fa-authenticator
+\src-tauri\target\releas
+e\bundle\msi\local-2fa-a
+uthenticator_0.1.0_x64_e
+n-US.msi
+        Info Target: x64
+     Running makensis to
+ produce C:\Users\minse\
+.gemini\antigravity\scra
+tch\local-2fa-authentica
+tor\src-tauri\target\rel
+ease\bundle\nsis\local-2
+fa-authenticator_0.1.0_x
+64-setup.exe
+    Finished 2 bundles a
+t:
+        C:\Users\minse\.
+gemini\antigravity\scrat
+ch\local-2fa-authenticat
+or\src-tauri\target\rele
+ase\bundle\msi\local-2fa
+-authenticator_0.1.0_x64
+_en-US.msi
+        C:\Users\minse\.
+gemini\antigravity\scrat
+ch\local-2fa-authenticat
+or\src-tauri\target\rele
+ase\bundle\nsis\local-2f
+a-authenticator_0.1.0_x6
+4-setup.exe
+

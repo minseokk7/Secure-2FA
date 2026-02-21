@@ -1,0 +1,63 @@
+﻿cargo :    Compiling
+ local-2fa-authentic
+ator v0.1.0 (C:\User
+s\minse\.gemini\anti
+gravity\scratch\loca
+l-2fa-authenticator\
+src-tauri)
+위치 줄:1 문자:1
++ cargo test 2>&1 | 
+Out-File -Encoding u
+tf8 "c:\Users\minse\
+.gemini\ant ...
++ ~~~~~~~~~~~~~~~
+    + CategoryInfo  
+            : NotSpe
+    cified: (   Comp
+    iling lo...ator\
+    src-tauri):Strin
+    g) [], RemoteExc
+    eption
+    + FullyQualified
+    ErrorId : Native
+    CommandError
+ 
+    Finished `test` 
+profile [unoptimized
+ + debuginfo] target
+(s) in 5.36s
+     Running unittes
+ts src\lib.rs (targe
+t\debug\deps\local_2
+fa_authenticator_lib
+-7832ea43d3a310cc.ex
+e)
+
+running 7 tests
+test totp::tests::test_validate_secret_format_invalid ... ok
+test crypto::tests::test_decrypt_with_wrong_key_fails ... ok
+test crypto::tests::test_encrypt_decrypt_roundtrip ... ok
+test totp::tests::test_generate_totp_code_short_secret ... ok
+test totp::tests::test_generate_totp_code_valid_secret ... ok
+test totp::tests::test_validate_secret_format_valid ... ok
+test crypto::tests::test_empty_string_roundtrip ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittes
+ts src\main.rs (targ
+et\debug\deps\local_
+2fa_authenticator-fa
+a1bc41d4c6a985.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests local_2
+fa_authenticator_lib
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

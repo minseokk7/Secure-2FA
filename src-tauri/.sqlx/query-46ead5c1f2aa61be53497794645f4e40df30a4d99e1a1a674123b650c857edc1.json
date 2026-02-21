@@ -1,0 +1,50 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT id, issuer, account_name, encrypted_secret, secret_nonce, created_at FROM accounts ORDER BY issuer ASC",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "issuer",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "account_name",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "encrypted_secret",
+        "ordinal": 3,
+        "type_info": "Blob"
+      },
+      {
+        "name": "secret_nonce",
+        "ordinal": 4,
+        "type_info": "Blob"
+      },
+      {
+        "name": "created_at",
+        "ordinal": 5,
+        "type_info": "Datetime"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      true,
+      false,
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "46ead5c1f2aa61be53497794645f4e40df30a4d99e1a1a674123b650c857edc1"
+}

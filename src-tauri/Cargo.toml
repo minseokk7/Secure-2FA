@@ -1,0 +1,37 @@
+[package]
+name = "local-2fa-authenticator"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "local_2fa_authenticator_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+totp-rs = "5.7.0"
+sqlx = { version = "0.8.6", features = ["sqlite", "runtime-tokio-rustls", "chrono"] }
+ring = "0.17.14"
+tokio = { version = "1.49.0", features = ["sync", "rt-multi-thread", "macros", "net"] }
+chrono = { version = "0.4.43", features = ["serde"] }
+tauri-plugin-dialog = "2.0.0"
+uuid = { version = "1", features = ["v4"] }
+dirs = "5.0.1"
+tauri-plugin-global-shortcut = "2"
+image = "0.25"
+rqrr = "0.8"
+xcap = "0.0.14"
+url = "2"
+urlencoding = "2"
+base64 = "0.22"
+
+[profile.dev]
+incremental = true

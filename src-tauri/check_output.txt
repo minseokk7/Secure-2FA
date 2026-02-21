@@ -1,0 +1,49 @@
+﻿cargo : warning: use
+ of deprecated metho
+d `tauri::tray::Tray
+IconBuilder::<R>::me
+nu_on_left_click`: U
+se `TrayIconBuilder:
+:show_menu_on_left_c
+lick` instead.
+위치 줄:1 문자:59
++ ... Text.Encoding]
+::UTF8; cargo check 
+--message-format=sho
+rt 2>&1 | Out-F ...
++                   
+        ~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~
+    + CategoryInfo  
+            : NotS  
+  pecified: (warn   
+ ing: use of...c    
+lick` instead.:    S
+tring) [], Rem    ot
+eException
+    + FullyQualifie 
+   dErrorId : Nati  
+  veCommandError
+ 
+   --> src\lib.rs:26
+0:18
+    |
+260 |               
+  .menu_on_left_clic
+k(false)
+    |               
+   ^^^^^^^^^^^^^^^^^
+^
+    |
+    = note: `#[warn(
+deprecated)]` on by 
+default
+
+warning: `local-2fa-
+authenticator` (lib)
+ generated 1 warning
+    Finished `dev` p
+rofile [unoptimized 
++ debuginfo] target(
+s) in 0.66s

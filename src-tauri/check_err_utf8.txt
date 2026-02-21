@@ -1,0 +1,81 @@
+﻿cargo :     Checking
+ local-2fa-authentic
+ator v0.1.0 (C:\User
+s\minse\.gemini\anti
+gravity\scratch\loca
+l-2fa-authenticator\
+src-tauri)
+위치 줄:1 문자:1
++ cargo check > chec
+k_err.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+    + CategoryInfo  
+            : NotS  
+  pecified: (       
+ Checking lo...a    
+tor\src-tauri):    S
+tring) [], Rem    ot
+eException
+    + FullyQualifie 
+   dErrorId : Nati  
+  veCommandError
+ 
+error[E0433]: failed
+ to resolve: use of 
+unresolved module or
+ unlinked crate `uui
+d`
+   --> src\db.rs:134
+:23
+    |
+134 |         let sy
+nc_id = uuid::Uuid::
+new_v4().to_string()
+;
+    |               
+        ^^^^ use of 
+unresolved module or
+ unlinked crate `uui
+d`
+    |
+    = help: if you w
+anted to use a crate
+ named `uuid`, use `
+cargo add uuid` to a
+dd it to your `Cargo
+.toml`
+
+error[E0433]: failed
+ to resolve: use of 
+unresolved module or
+ unlinked crate `dir
+s`
+   --> src\lib.rs:12
+0:31
+    |
+120 |               
+  let app_dir = dirs
+::data_dir()
+    |               
+                ^^^^
+ use of unresolved m
+odule or unlinked cr
+ate `dirs`
+    |
+    = help: if you w
+anted to use a crate
+ named `dirs`, use `
+cargo add dirs` to a
+dd it to your `Cargo
+.toml`
+
+For more information
+ about this error, t
+ry `rustc --explain 
+E0433`.
+error: could not com
+pile `local-2fa-auth
+enticator` (lib) due
+ to 2 previous error
+s
