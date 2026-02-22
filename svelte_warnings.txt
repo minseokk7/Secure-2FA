@@ -1,0 +1,438 @@
+﻿Loading svelte-check in workspace: c:\Users\minse\Desktop\Development\local-2fa-authenticator
+Getting Svelte diagnostics...
+
+c:\Users\minse\Desktop\Development\local-2fa-authenticator\[32mvite.config.js[39m:5:1
+[31mError[39m: Unused '@ts-expect-error' directive. 
+[36m
+[35m// @ts-expect-error process is a nodejs global[36m
+const host = process.env.TAURI_DEV_HOST;[39m
+
+c:\Users\minse\Desktop\Development\local-2fa-authenticator\[32msrc\lib\components\PinSettingsModal.svelte[39m:82:5
+[33mWarn[39m: Elements with the 'dialog' interactive role must have a tabindex value
+https://svelte.dev/e/a11y_interactive_supports_focus (svelte)
+[36m{#if showModal}
+    [35m<div
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-fade-in"
+        style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);"
+        role="dialog"
+        aria-modal="true"
+        on:click|self={mode === "select" ? close : () => {}}
+    >
+        <div
+            transition:scale={{ duration: 250, start: 0.95 }}
+            class="glass-panel w-full max-w-md p-6 sm:p-8 relative flex flex-col max-h-[90vh] overflow-y-auto"
+            style="border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);"
+        >
+            <!-- ?リ린 踰꾪듉 ?먮뒗 ?ㅻ줈 媛湲?踰꾪듉 -->
+            <button
+                on:click={mode === "select" ? close : () => (mode = "select")}
+                class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-10"
+            >
+                {#if mode === "select"}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    </svg>
+                {:else}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                        />
+                    </svg>
+                {/if}
+            </button>
+
+            {#if mode === "select"}
+                <div class="text-center mb-8 pt-4">
+                    <div
+                        class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center bg-slate-800/50 border border-slate-700"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-8 w-8 text-slate-300"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                            />
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-2">
+                        蹂댁븞 ?ㅼ젙
+                    </h2>
+                    <p class="text-sm text-slate-400">
+                        ???쒖옉 ???뷀샇 ?낅젰???붽뎄?섏뿬 蹂댁븞??媛뺥솕?⑸땲??
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <div
+                        class="glass-panel p-5 rounded-xl border border-white/5 flex items-center justify-between"
+                    >
+                        <div>
+                            <h3 class="text-white font-medium mb-1">
+                                ???좉툑 ?쒖꽦??
+                            </h3>
+                            <p class="text-sm text-slate-400">
+                                {hasPin
+                                    ? "?꾩옱 ?깆씠 PIN?쇰줈 蹂댄샇?섍퀬 ?덉뒿?덈떎."
+                                    : "?좉툑???댁젣?섏뼱 ?덉뒿?덈떎."}
+                            </p>
+                        </div>
+
+                        {#if hasPin}
+                            <span
+                                class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full border border-emerald-500/30"
+                            >
+                                ?ъ슜 以?
+                            </span>
+                        {:else}
+                            <span
+                                class="px-3 py-1 bg-slate-700/50 text-slate-400 text-xs font-bold rounded-full border border-slate-600"
+                            >
+                                ?ъ슜 ????
+                            </span>
+                        {/if}
+                    </div>
+
+                    {#if hasPin}
+                        <button
+                            on:click={() => (mode = "setup")}
+                            class="w-full text-left p-5 rounded-xl glass hover:bg-white/10 transition-colors border border-white/5 flex items-center gap-4 group"
+                        >
+                            <div
+                                class="w-10 h-10 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-white font-medium">PIN 蹂寃?/h4>
+                                <p class="text-xs text-slate-400">
+                                    ?깅줉???レ옄 ?뷀샇瑜??덈∼寃?蹂寃쏀빀?덈떎.
+                                </p>
+                            </div>
+                        </button>
+
+                        <button
+                            on:click={() => (mode = "remove")}
+                            class="w-full text-left p-5 rounded-xl glass hover:bg-red-500/10 transition-colors border border-white/5 flex items-center gap-4 group"
+                        >
+                            <div
+                                class="w-10 h-10 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4
+                                    class="text-white font-medium group-hover:text-red-400 transition-colors"
+                                >
+                                    ?좉툑 ?꾧린
+                                </h4>
+                                <p
+                                    class="text-xs text-slate-400 group-hover:text-red-300 transition-colors"
+                                >
+                                    湲곗〈 PIN???뺤씤?????좉툑???댁젣?⑸땲??
+                                </p>
+                            </div>
+                        </button>
+                    {:else}
+                        <button
+                            on:click={() => (mode = "setup")}
+                            class="w-full text-center py-4 rounded-xl btn-brand text-white font-bold tracking-wide mt-4"
+                        >
+                            ??PIN ?ㅼ젙?섍린
+                        </button>
+                    {/if}
+                </div>
+            {:else if mode === "setup"}
+                <div class="py-4">
+                    <PinPad
+                        bind:this={pinPadRef}
+                        mode="setup"
+                        on:setup={handleSetup}
+                    />
+                </div>
+            {:else}
+                <div class="py-4">
+                    <PinPad
+                        bind:this={pinPadRef}
+                        mode="remove"
+                        on:submit={handleRemove}
+                    />
+                </div>
+            {/if}
+        </div>
+    </div>[36m
+{/if}[39m
+
+c:\Users\minse\Desktop\Development\local-2fa-authenticator\[32msrc\lib\components\PinSettingsModal.svelte[39m:82:5
+[33mWarn[39m: Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events (svelte)
+[36m{#if showModal}
+    [35m<div
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-fade-in"
+        style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);"
+        role="dialog"
+        aria-modal="true"
+        on:click|self={mode === "select" ? close : () => {}}
+    >
+        <div
+            transition:scale={{ duration: 250, start: 0.95 }}
+            class="glass-panel w-full max-w-md p-6 sm:p-8 relative flex flex-col max-h-[90vh] overflow-y-auto"
+            style="border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);"
+        >
+            <!-- ?リ린 踰꾪듉 ?먮뒗 ?ㅻ줈 媛湲?踰꾪듉 -->
+            <button
+                on:click={mode === "select" ? close : () => (mode = "select")}
+                class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-10"
+            >
+                {#if mode === "select"}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    </svg>
+                {:else}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                        />
+                    </svg>
+                {/if}
+            </button>
+
+            {#if mode === "select"}
+                <div class="text-center mb-8 pt-4">
+                    <div
+                        class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center bg-slate-800/50 border border-slate-700"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-8 w-8 text-slate-300"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                            />
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-2">
+                        蹂댁븞 ?ㅼ젙
+                    </h2>
+                    <p class="text-sm text-slate-400">
+                        ???쒖옉 ???뷀샇 ?낅젰???붽뎄?섏뿬 蹂댁븞??媛뺥솕?⑸땲??
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <div
+                        class="glass-panel p-5 rounded-xl border border-white/5 flex items-center justify-between"
+                    >
+                        <div>
+                            <h3 class="text-white font-medium mb-1">
+                                ???좉툑 ?쒖꽦??
+                            </h3>
+                            <p class="text-sm text-slate-400">
+                                {hasPin
+                                    ? "?꾩옱 ?깆씠 PIN?쇰줈 蹂댄샇?섍퀬 ?덉뒿?덈떎."
+                                    : "?좉툑???댁젣?섏뼱 ?덉뒿?덈떎."}
+                            </p>
+                        </div>
+
+                        {#if hasPin}
+                            <span
+                                class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full border border-emerald-500/30"
+                            >
+                                ?ъ슜 以?
+                            </span>
+                        {:else}
+                            <span
+                                class="px-3 py-1 bg-slate-700/50 text-slate-400 text-xs font-bold rounded-full border border-slate-600"
+                            >
+                                ?ъ슜 ????
+                            </span>
+                        {/if}
+                    </div>
+
+                    {#if hasPin}
+                        <button
+                            on:click={() => (mode = "setup")}
+                            class="w-full text-left p-5 rounded-xl glass hover:bg-white/10 transition-colors border border-white/5 flex items-center gap-4 group"
+                        >
+                            <div
+                                class="w-10 h-10 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-white font-medium">PIN 蹂寃?/h4>
+                                <p class="text-xs text-slate-400">
+                                    ?깅줉???レ옄 ?뷀샇瑜??덈∼寃?蹂寃쏀빀?덈떎.
+                                </p>
+                            </div>
+                        </button>
+
+                        <button
+                            on:click={() => (mode = "remove")}
+                            class="w-full text-left p-5 rounded-xl glass hover:bg-red-500/10 transition-colors border border-white/5 flex items-center gap-4 group"
+                        >
+                            <div
+                                class="w-10 h-10 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"
+                                    />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4
+                                    class="text-white font-medium group-hover:text-red-400 transition-colors"
+                                >
+                                    ?좉툑 ?꾧린
+                                </h4>
+                                <p
+                                    class="text-xs text-slate-400 group-hover:text-red-300 transition-colors"
+                                >
+                                    湲곗〈 PIN???뺤씤?????좉툑???댁젣?⑸땲??
+                                </p>
+                            </div>
+                        </button>
+                    {:else}
+                        <button
+                            on:click={() => (mode = "setup")}
+                            class="w-full text-center py-4 rounded-xl btn-brand text-white font-bold tracking-wide mt-4"
+                        >
+                            ??PIN ?ㅼ젙?섍린
+                        </button>
+                    {/if}
+                </div>
+            {:else if mode === "setup"}
+                <div class="py-4">
+                    <PinPad
+                        bind:this={pinPadRef}
+                        mode="setup"
+                        on:setup={handleSetup}
+                    />
+                </div>
+            {:else}
+                <div class="py-4">
+                    <PinPad
+                        bind:this={pinPadRef}
+                        mode="remove"
+                        on:submit={handleRemove}
+                    />
+                </div>
+            {/if}
+        </div>
+    </div>[36m
+{/if}[39m
+
+====================================
+[31msvelte-check found 1 error and 2 warnings in 2 files
+[39m

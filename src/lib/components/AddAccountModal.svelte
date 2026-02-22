@@ -110,13 +110,14 @@
                 return;
             } catch (autoErr) {
                 // 자동 감지 실패 → (2차) 수동 선택 오버레이로 넘어가기 위해 무시
-                console.log("자동 감지 실패, 수동 선택 모드로 진입:", autoErr);
             }
 
-            // 4. (2차) 풀스크린 오버레이 표시
+            // 4. (2차) 풀스크린 오버레이 표시 대신 모니터 확대로 변경
+            // 전체화면(setFullscreen)은 Windows에서 깜빡임이나 모니터 전환 버그를 유발할 수 있으므로
+            // 테두리 없는 최대화(borderless maximized)를 사용합니다.
             await win.setDecorations(false);
             await win.setAlwaysOnTop(true);
-            await win.setFullscreen(true);
+            await win.maximize();
             await win.show();
             await win.setFocus();
 
@@ -132,10 +133,13 @@
     /** 창을 원래 상태로 복원 */
     async function restoreWindow() {
         const win = getCurrentWindow();
-        await win.setFullscreen(false);
+        await win.hide(); // 상태 변경 중 화면에 잔상(작아지는 모습)이 안 보이게 숨김
+        await win.unmaximize();
         await win.setAlwaysOnTop(false);
         await win.setDecorations(true);
         await win.center();
+        await win.show(); // 상태 복구 후 창을 다시 표시
+        await win.setFocus();
     }
 
     /** (수동) 영역 선택 완료 시 크롭 후 디코딩 */
@@ -186,6 +190,8 @@
 
 {#if showModal}
     <!-- 배경 오버레이 -->
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
         class="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in"
         style="background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"

@@ -113,6 +113,36 @@ pub fn verify_pin_hash(pin: &str, saved_hash_b64: &str, saved_salt_b64: &str) ->
     .is_ok()
 }
 
+// ── 기기별 고유 마스터 키 관리 ──
+
+/// 앱 데이터 디렉토리에서 마스터 키를 로드하거나, 없으면 새로 생성합니다.
+/// 키 파일은 `master.key` 이름으로 저장되며, 32바이트 랜덤 값입니다.
+pub fn load_or_create_master_key(app_dir: &std::path::Path) -> Result<[u8; 32], Box<dyn Error>> {
+    let key_path = app_dir.join("master.key");
+
+    if key_path.exists() {
+        // 기존 키 로드
+        let key_data =
+            std::fs::read(&key_path).map_err(|e| format!("마스터 키 파일 읽기 실패: {}", e))?;
+        if key_data.len() != 32 {
+            return Err("마스터 키 파일이 손상되었습니다 (32바이트가 아님)".into());
+        }
+        let mut key = [0u8; 32];
+        key.copy_from_slice(&key_data);
+        Ok(key)
+    } else {
+        // 신규 키 생성
+        let rng = SystemRandom::new();
+        let mut key = [0u8; 32];
+        rng.fill(&mut key)
+            .map_err(|_| "마스터 키 생성을 위한 랜덤 값 생성 실패")?;
+
+        std::fs::write(&key_path, &key).map_err(|e| format!("마스터 키 파일 저장 실패: {}", e))?;
+
+        Ok(key)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

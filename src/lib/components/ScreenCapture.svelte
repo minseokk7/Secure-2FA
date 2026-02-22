@@ -35,7 +35,7 @@
         currentY = e.clientY;
     }
 
-    function handleMouseUp(_e: MouseEvent) {
+    function handleMouseUp() {
         if (!isDrawing) return;
         isDrawing = false;
 

@@ -21,6 +21,18 @@
   let isPinSettingsOpen = false;
   let toastRef: Toast;
   let isDragging = false;
+  let searchQuery = "";
+
+  /** 검색 필터 적용된 계정 목록 */
+  $: filteredAccounts = searchQuery.trim()
+    ? accounts.filter(
+        (a) =>
+          a.issuer.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+          a.account_name
+            .toLowerCase()
+            .includes(searchQuery.trim().toLowerCase()),
+      )
+    : accounts;
 
   type PinState = "loading" | "needs_setup" | "locked" | "unlocked";
   let pinState: PinState = "loading";
@@ -34,8 +46,7 @@
       } else {
         pinState = "needs_setup";
       }
-    } catch (e) {
-      console.error("Failed to check PIN status", e);
+    } catch {
       pinState = "needs_setup";
     }
   }
@@ -97,31 +108,34 @@
     if (!files || files.length === 0) return;
 
     const file = files[0];
-    const name = file.name.toLowerCase();
+    const fileName = file.name.toLowerCase();
 
-    // Tauri v2에서는 파일 경로를 직접 접근할 수 없으므로 FileReader를 사용
-    if (name.endsWith(".json")) {
-      // JSON 백업 파일 복원
+    if (fileName.endsWith(".json")) {
+      // JSON 백업 파일 복원: 파일을 임시 저장 후 import 커맨드 호출
       try {
-        const text = await file.text();
-        const accounts = JSON.parse(text);
-        // 백업 데이터를 파일 다이얼로그 없이 직접 처리하기 위해 임시 파일 저장
-        // Tauri 커맨드를 통해 직접 import
-        const path = await save({
+        const tempPath = await save({
           filters: [{ name: "JSON Backup", extensions: ["json"] }],
           defaultPath: file.name,
         });
-        if (path) {
-          // 파일을 저장하고 import
-          await invoke("export_backup", { path }); // 자체적으로 동작하지 않음, 대신 직접 import
+        if (!tempPath) return;
+
+        // 드롭된 파일 내용을 선택한 경로에 저장한 후 import
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+        // 유효성 검증: 배열인지 확인
+        if (!Array.isArray(parsed)) {
+          toastRef?.show("유효하지 않은 백업 파일 형식입니다", "error");
+          return;
         }
-        toastRef?.show(`${accounts.length}개의 계정을 불러왔습니다`, "success");
+
+        // 파일 다이얼로그에서 선택한 경로로 임시 파일 내보내기 후 다시 불러오기
+        const importedCount = await invoke("import_backup", { path: tempPath });
+        toastRef?.show(`${importedCount}개의 계정을 불러왔습니다`, "success");
         loadAccounts();
       } catch (err: any) {
         toastRef?.show(`파일 처리 실패: ${err}`, "error");
       }
-    } else if (name.match(/\.(png|jpg|jpeg|gif|bmp|webp)$/)) {
-      // 이미지 QR 코드 스캔
+    } else if (fileName.match(/\.(png|jpg|jpeg|gif|bmp|webp)$/)) {
       toastRef?.show(
         "QR 코드 이미지 드롭은 파일 다이얼로그를 통해 불러오세요",
         "error",
@@ -193,7 +207,10 @@
             <!-- 로고 아이콘 (앱 잠금 버튼 겸용) -->
             <div class="relative">
               <button
-                on:click={() => window.location.reload()}
+                on:click={() => {
+                  pinState = "locked";
+                  accounts = [];
+                }}
                 title="앱 잠금"
                 class="w-10 h-10 rounded-xl flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-10 relative cursor-pointer group"
                 style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.25) 0%, rgba(99, 102, 241, 0.15) 100%); border: 1px solid rgba(129, 140, 248, 0.2);"
@@ -229,6 +246,31 @@
         </div>
 
         <div class="flex items-center gap-3 mt-5 sm:mt-0">
+          <!-- 검색 입력 -->
+          {#if accounts.length > 0}
+            <div class="relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 pointer-events-none"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                bind:value={searchQuery}
+                placeholder="계정 검색"
+                class="w-36 pl-8 pr-3 py-2 text-xs rounded-xl bg-white/5 text-slate-300 placeholder-slate-600 border border-white/8 focus:outline-none focus:border-brand-400/40 transition-all"
+              />
+            </div>
+          {/if}
           <!-- 불러오기 버튼 -->
           <button
             on:click={handleImport}
@@ -438,7 +480,7 @@
         </div>
       {:else}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pb-10">
-          {#each accounts as account, i (account.id)}
+          {#each filteredAccounts as account, i (account.id)}
             <div
               style="animation-delay: {i * 80}ms;"
               class="animate-slide-up opacity-0"

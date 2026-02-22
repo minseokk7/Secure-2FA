@@ -20,6 +20,10 @@
   let copied = false;
   /** 인라인 삭제 확인 모드 */
   let confirmingDelete = false;
+  /** 현재 TOTP 주기 번호 (30초 단위) - 주기 변경 감지용 */
+  let lastTimeStep = -1;
+  /** 주기 전환 시 되감기 애니메이션 방지용 */
+  let noTransition = false;
 
   async function fetchOtp() {
     try {
@@ -29,22 +33,42 @@
           nonce: account.secret_nonce,
         });
       currentCode = response.code;
-      remainingSeconds = response.remaining_seconds;
-      progressPercentage = (remainingSeconds / 30) * 100;
     } catch (_e) {
       currentCode = "오류";
     }
   }
 
-  onMount(() => {
-    fetchOtp();
-    intervalId = setInterval(() => {
-      remainingSeconds -= 1;
-      progressPercentage = (remainingSeconds / 30) * 100;
-      if (remainingSeconds <= 0) {
-        fetchOtp();
+  /** 매 틱마다 시스템 시간 기반으로 남은 시간 갱신 및 주기 변경 시 OTP 재요청 */
+  function tick() {
+    const now = Math.floor(Date.now() / 1000);
+    const currentTimeStep = Math.floor(now / 30);
+    remainingSeconds = 30 - (now % 30);
+
+    // TOTP 30초 주기가 변경되면 되감기 없이 즉시 리셋
+    if (currentTimeStep !== lastTimeStep) {
+      if (lastTimeStep !== -1) {
+        // 트랜지션 끄고 즉시 100%로 점프
+        noTransition = true;
+        progressPercentage = 100;
+        // 다음 프레임에 트랜지션 켜고 0%로 부드럽게 애니메이션
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            noTransition = false;
+            progressPercentage = 0;
+          });
+        });
+      } else {
+        // 최초 로드: 남은 시간에 맞춰 중간부터 시작
+        progressPercentage = 0;
       }
-    }, 1000);
+      lastTimeStep = currentTimeStep;
+      fetchOtp();
+    }
+  }
+
+  onMount(() => {
+    tick();
+    intervalId = setInterval(tick, 1000); // 초 표시 갱신용
   });
 
   onDestroy(() => {
@@ -87,6 +111,41 @@
     } catch (_e) {
       dispatch("toast", { message: "삭제에 실패했습니다", type: "error" });
     }
+  }
+  /** 인라인 편집 모드 */
+  let isEditing = false;
+  let editIssuer = "";
+  let editAccountName = "";
+
+  /** 편집 모드 시작 */
+  function startEdit() {
+    editIssuer = account.issuer;
+    editAccountName = account.account_name;
+    isEditing = true;
+  }
+
+  /** 편집 저장 */
+  async function saveEdit() {
+    try {
+      await invoke("update_account", {
+        id: account.id,
+        issuer: editIssuer.trim(),
+        accountName: editAccountName.trim(),
+      });
+      dispatch("toast", {
+        message: `${editIssuer.trim()} 계정이 수정되었습니다`,
+        type: "success",
+      });
+      dispatch("deleted"); // 계정 목록 새로고침
+      isEditing = false;
+    } catch (_e) {
+      dispatch("toast", { message: "수정에 실패했습니다", type: "error" });
+    }
+  }
+
+  /** 편집 취소 */
+  function cancelEdit() {
+    isEditing = false;
   }
 </script>
 
@@ -131,17 +190,63 @@
           />
         </svg>
       </button>
+      <!-- 편집 버튼 -->
+      <button
+        on:click={startEdit}
+        class="text-slate-500 hover:text-brand-400 opacity-0 group-hover:opacity-100 transition-all duration-200"
+        title="계정 편집"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+          />
+        </svg>
+      </button>
     {/if}
   </div>
 
   <!-- 계정 정보 -->
   <div class="mb-4 flex items-center gap-3">
-    <ServiceIcon issuer={account.issuer} size={36} />
-    <div class="min-w-0">
-      <h3 class="text-lg font-bold text-white truncate pr-16">
-        {account.issuer}
-      </h3>
-      <p class="text-sm text-slate-400 truncate">{account.account_name}</p>
+    <ServiceIcon issuer={isEditing ? editIssuer : account.issuer} size={36} />
+    <div class="min-w-0 flex-1">
+      {#if isEditing}
+        <input
+          type="text"
+          bind:value={editIssuer}
+          class="w-full bg-white/5 border border-white/10 rounded-md px-2 py-1 text-white text-sm font-bold focus:outline-none focus:border-brand-400 mb-1"
+          placeholder="서비스 이름"
+        />
+        <input
+          type="text"
+          bind:value={editAccountName}
+          class="w-full bg-white/5 border border-white/10 rounded-md px-2 py-1 text-slate-300 text-xs focus:outline-none focus:border-brand-400"
+          placeholder="계정명"
+        />
+        <div class="flex gap-1.5 mt-1.5">
+          <button
+            on:click={saveEdit}
+            class="text-xs px-2 py-0.5 rounded bg-brand-600/30 text-brand-300 hover:bg-brand-600/50 transition-all"
+          >
+            저장
+          </button>
+          <button
+            on:click={cancelEdit}
+            class="text-xs px-2 py-0.5 rounded text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+          >
+            취소
+          </button>
+        </div>
+      {:else}
+        <h3 class="text-lg font-bold text-white truncate pr-16">
+          {account.issuer}
+        </h3>
+        <p class="text-sm text-slate-400 truncate">{account.account_name}</p>
+      {/if}
     </div>
   </div>
 
@@ -175,7 +280,7 @@
     <div
       class="relative w-10 h-10 flex items-center justify-center flex-shrink-0"
     >
-      <svg class="w-10 h-10 transform -rotate-90">
+      <svg class="w-10 h-10" style="transform: rotate(-90deg);">
         <circle
           cx="20"
           cy="20"
@@ -193,11 +298,12 @@
           stroke-width="3"
           fill="transparent"
           stroke-dasharray="100.53"
-          stroke-dashoffset={100.53 - (100.53 * progressPercentage) / 100}
+          stroke-dashoffset={100.53 * (progressPercentage / 100)}
           stroke-linecap="round"
-          class="transition-all duration-1000 ease-linear {remainingSeconds < 5
-            ? 'text-red-400'
-            : 'text-brand-400'}"
+          class={remainingSeconds < 5 ? "text-red-400" : "text-brand-400"}
+          style="transition: {noTransition
+            ? 'none'
+            : `stroke-dashoffset ${remainingSeconds}s linear`};"
         />
       </svg>
       <span

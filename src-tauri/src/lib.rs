@@ -9,11 +9,11 @@ use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent}
 use tauri::{Manager, State, WindowEvent};
 use tokio::sync::Mutex;
 
-const MASTER_KEY: &[u8; 32] = b"an_example_of_a_very_secure_key!";
-
 struct AppState {
     db: Arc<Mutex<Db>>,
     last_screenshot: Arc<Mutex<Option<image::DynamicImage>>>,
+    /// 기기별 고유 암호화 키 (앱 최초 실행 시 랜덤 생성, 이후 파일에서 로드)
+    master_key: [u8; 32],
 }
 
 // ── 기존 계정 관리 커맨드 ──
@@ -36,7 +36,7 @@ async fn add_account(
     }
 
     let (encrypted_secret, nonce) =
-        crypto::encrypt_secret(&secret_key, MASTER_KEY).map_err(|e| e.to_string())?;
+        crypto::encrypt_secret(&secret_key, &state.master_key).map_err(|e| e.to_string())?;
 
     let db = state.db.lock().await;
     db.add_account(&issuer, &account_name, &encrypted_secret, &nonce)
@@ -50,6 +50,23 @@ async fn delete_account(id: i64, state: State<'_, AppState>) -> Result<(), Strin
     db.delete_account(id).await.map_err(|e| e.to_string())
 }
 
+/// 계정의 발급자(issuer)와 계정명(account_name)을 수정합니다.
+#[tauri::command]
+async fn update_account(
+    id: i64,
+    issuer: String,
+    account_name: String,
+    state: State<'_, AppState>,
+) -> Result<(), String> {
+    if issuer.trim().is_empty() || account_name.trim().is_empty() {
+        return Err("발급자와 계정명은 비어있을 수 없습니다".into());
+    }
+    let db = state.db.lock().await;
+    db.update_account(id, issuer.trim(), account_name.trim())
+        .await
+        .map_err(|e| e.to_string())
+}
+
 #[derive(serde::Serialize)]
 struct OtpResponse {
     code: String,
@@ -57,7 +74,11 @@ struct OtpResponse {
 }
 
 #[tauri::command]
-async fn get_current_otp(encrypted_secret: Vec<u8>, nonce: Vec<u8>) -> Result<OtpResponse, String> {
+async fn get_current_otp(
+    encrypted_secret: Vec<u8>,
+    nonce: Vec<u8>,
+    state: State<'_, AppState>,
+) -> Result<OtpResponse, String> {
     let mut nonce_array = [0u8; 12];
     if nonce.len() == 12 {
         nonce_array.copy_from_slice(&nonce);
@@ -65,7 +86,7 @@ async fn get_current_otp(encrypted_secret: Vec<u8>, nonce: Vec<u8>) -> Result<Ot
         return Err("유효하지 않은 nonce 길이입니다".into());
     }
 
-    let secret_str = crypto::decrypt_secret(&encrypted_secret, &nonce_array, MASTER_KEY)
+    let secret_str = crypto::decrypt_secret(&encrypted_secret, &nonce_array, &state.master_key)
         .map_err(|e| e.to_string())?;
 
     let (code, remaining_seconds) = totp::generate_totp_code(&secret_str)?;
@@ -454,12 +475,17 @@ pub fn run() {
 
                 std::fs::create_dir_all(&app_dir).unwrap();
 
+                // 기기별 고유 마스터 키 로드 또는 생성
+                let master_key =
+                    crypto::load_or_create_master_key(&app_dir).expect("마스터 키 초기화 실패");
+
                 let db = Db::new(&app_dir).await.unwrap();
                 let db_arc = Arc::new(Mutex::new(db));
 
                 app_handle.manage(AppState {
                     db: db_arc,
                     last_screenshot: Arc::new(Mutex::new(None)),
+                    master_key,
                 });
             });
 
@@ -523,6 +549,7 @@ pub fn run() {
             get_accounts,
             add_account,
             delete_account,
+            update_account,
             get_current_otp,
             export_backup,
             import_backup,

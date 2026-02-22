@@ -219,6 +219,24 @@ impl Db {
         Ok(())
     }
 
+    /// 계정의 발급자(issuer)와 계정명(account_name)을 수정합니다.
+    pub async fn update_account(
+        &self,
+        id: i64,
+        issuer: &str,
+        account_name: &str,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        sqlx::query(
+            "UPDATE accounts SET issuer = ?, account_name = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?"
+        )
+        .bind(issuer)
+        .bind(account_name)
+        .bind(id)
+        .execute(&self.pool)
+        .await?;
+        Ok(())
+    }
+
     // ── 동기화 관련 ──
 
     /// 특정 시점 이후 변경된 계정 목록 조회
