@@ -1,5 +1,5 @@
 [package]
-name = "local-2fa-authenticator"
+name = "Secure-2FA"
 version = "0.1.0"
 description = "A Tauri App"
 authors = ["you"]
@@ -32,6 +32,7 @@ xcap = "0.0.14"
 url = "2"
 urlencoding = "2"
 base64 = "0.22"
+tauri-plugin-single-instance = "2.4.0"
 
 [profile.dev]
 incremental = true

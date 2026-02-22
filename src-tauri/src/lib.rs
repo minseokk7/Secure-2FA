@@ -465,6 +465,13 @@ pub fn run() {
                 })
                 .build(),
         )
+        .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+            // 다른 인스턴스가 실행되려 할 때 처리: 기존 창을 보여주고 포커스
+            if let Some(window) = app.get_webview_window("main") {
+                let _ = window.show();
+                let _ = window.set_focus();
+            }
+        }))
         .setup(|app| {
             let app_handle = app.handle().clone();
 
